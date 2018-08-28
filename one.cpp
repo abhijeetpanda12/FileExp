@@ -35,6 +35,8 @@ void editorProcessKeypress() {
 // editor initialize
 
 
+
+
 void initEditor() {
   E.cx = 0;
   E.cy = 0;
