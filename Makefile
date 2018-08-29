@@ -1,9 +1,9 @@
 
-output: one.o
-	gcc one.o -o output
+output: test.o
+	gcc test.o -o output
 
-one.o: one.c two.h three.h append.h
-	gcc -c one.c
+test.o: test.c dirutil.h disputil.h termutil.h util.h
+	gcc -c test.c
 
 clean:
 	rm *.o output

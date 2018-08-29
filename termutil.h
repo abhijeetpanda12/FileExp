@@ -1,12 +1,13 @@
-struct editorConfig {
+struct dispConfig {
   int cx, cy;
   int screenrows;
   int screencols;
   int numrows;
+  int rowoff;
   struct termios orig_termios;
 };
 
-struct editorConfig E;
+struct dispConfig E;
 
 int getWindowSize(int *rows, int *cols) {
   struct winsize ws;
