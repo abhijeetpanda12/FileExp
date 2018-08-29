@@ -1,9 +1,9 @@
 
 output: one.o
-	g++ one.o -o output
+	gcc one.o -o output
 
-one.o: one.cpp two.h three.h
-	g++ -c one.cpp
+one.o: one.c two.h three.h append.h
+	gcc -c one.c
 
 clean:
 	rm *.o output
