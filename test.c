@@ -16,9 +16,9 @@
 #include "util.h"
 #include "dirutil.h"
 #include "disputil.h"
+#include "inpututil.h"
 
 void file_attrib(){
-
     struct stat FileAttrib;
     if (stat("util.h", &FileAttrib) < 0)
         printf("File Error Message = %s\n", strerror(errno));
@@ -43,7 +43,6 @@ int main(int argc, char** argv){
 
     if(list_dir(cwd)==-1) {
         print_status("NOT A DIRECTORY");
-        return -1;
     }
     // file_attrib();
     // place_cursor(10);

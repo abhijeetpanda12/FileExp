@@ -44,16 +44,21 @@ int list_dir(char *cwd){
     struct stat FileAttrib;
     DIR *dir;
     struct dirent *ent;
-    int i=0;char size[10];
+    int i=0;char size[20];char f_path[1000];
     if ((dir = opendir (cwd)) != NULL) {
         /* print all the files and directories within directory */
         while ((ent = readdir (dir)) != NULL) {
-            strcpy(disp_buff[i],ent->d_name);
-            if (ent->d_type!=4){
-                stat(ent->d_name, &FileAttrib);
-                strcat(disp_buff[i],"--------->");
-                // sprintf(size,"%d",ent->d_type);
-                sprintf(size,"%.3f KB",FileAttrib.st_size/1000.0);
+            strcpy(f_path,cwd);
+            strcat(f_path,"/");
+            strcat(f_path,ent->d_name);
+            stat(f_path, &FileAttrib);
+            if(S_ISDIR(FileAttrib.st_mode)){
+                strcat(disp_buff[i],"[DIR]");
+            }
+            strcat(disp_buff[i],ent->d_name);
+            if (S_ISREG(FileAttrib.st_mode)){
+                sprintf(size,"%.3f KB\n", FileAttrib.st_size/1000.0);
+                strcat(disp_buff[i],"------------------------------>");
                 strcat(disp_buff[i],size);
             }
             i++;
