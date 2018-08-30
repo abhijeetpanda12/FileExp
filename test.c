@@ -32,6 +32,7 @@ int main(int argc, char** argv){
     initscreen();
     print_status("Normal mode");
     init_disp_var();
+    print_message("Press q to exit.");
     // set working directory
 
     if(argc>1){
@@ -40,12 +41,15 @@ int main(int argc, char** argv){
     }else{
         if (getwdir()==-1) exitscreen();
     }
-
+    print_message("STATUS : BUSY");
     if(list_dir(cwd)==-1) {
         print_status("NOT A DIRECTORY");
     }
-    // file_attrib();
-    // place_cursor(10);
+    print_message("Press q to exit, p to clear screen.");
+    while(1){
+        dispProcessKeypress();
+    }
+    print_message("STATUS : quiting!");
     sleep(3);
     exitscreen();
     return 0;

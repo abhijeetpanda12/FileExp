@@ -1,14 +1,29 @@
 char disp_buff[100][100];
+int curr_start,curr_len;
 int prev_row=0;
 
 void place_cursor(int row){
+    if(row<val_row) return;
+    if(row>val_row_end) return;
     gotopoint(prev_row,0);
     printf(" \n");
-    gotopoint(row+val_row,0);
-    prev_row=row+val_row;
+    gotopoint(row,0);
+    prev_row=row;
     printf("▶\n");
 }
 
+void print_status(char *c){
+    gotopoint(E.screenrows-1,1);
+    write(STDOUT_FILENO, "\x1b[2K", 4);
+    printf("%s\n",c );
+}
+
+void print_message(char *c){
+    // printf("hello\n");
+    gotopoint(E.screenrows-3,1);
+    write(STDOUT_FILENO, "\x1b[2K", 4);
+    printf("%s\n",c );
+}
 
 
 void clrdisp(){
@@ -20,11 +35,13 @@ void clrdisp(){
 }
 
 void print_buff(int start,int len){
+    curr_start=start;
+    curr_len=len;
     clrdisp();
     int i=start;
     int temp_row=0;
     while(temp_row<val_num_rows && strcmp(disp_buff[i], "")){
-        place_cursor(temp_row);
+        place_cursor(temp_row+val_row);
         gotopoint(val_row+temp_row,val_col);
         printf("%d->|%s\n",i+1,disp_buff[i]);
         usleep(100000);

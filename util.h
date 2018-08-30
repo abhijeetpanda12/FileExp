@@ -51,8 +51,3 @@ void init_disp_var() {
 	val_num_rows = val_row_end - val_row;
   if (getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");
 }
-
-void print_status(char *c){
-    gotopoint(E.screenrows-1,1);
-    printf("%s\n",c );
-}
