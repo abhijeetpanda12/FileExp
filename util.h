@@ -2,6 +2,14 @@ int val_row;
 int val_row_end;
 int val_num_rows;
 int val_col;
+char c[1000];
+int df_flag=1;
+
+void clrstring(char *cddd){
+    int i;
+    for(i=0;i<strlen(cddd);i++)
+        cddd[i]='\0';
+}
 
 void gotopoint(int x,int y){
     char buff[50];
@@ -18,6 +26,36 @@ void gotopoint(int x,int y){
     strcat(buff,col);
     strcat(buff,"H");
     write(STDOUT_FILENO,buff,strlen(buff));
+}
+
+char* substring(char* s,int srt, int len){
+    int i,j;
+    clrstring(c);
+    if (len>strlen(s)) return s;
+    j=0;
+    for(i=srt;i<srt+len;i++){
+        c[j] = s[i];
+        j++;
+    }
+    c[j]='\0';
+    return c;
+}
+
+int find_start_loc(char *s, char* cmp){
+    int l1=strlen(s);
+    int l2=strlen(cmp);
+    if (l2>l1) return -1;
+    int i,j,flg;
+    for(i=0;i<l1;i++){
+        flg=0;
+        for(j=0;j<l2;j++){
+            if(s[i+j]!=cmp[j]){
+                flg=1;
+            }
+        }
+        if (flg==0) return i;
+    }
+    return -1;
 }
 
 void initscreen(){
