@@ -1,3 +1,9 @@
+void create_file(char * file_name){
+    FILE *fptr;
+    fptr = fopen(file_name, "w");
+    fclose(fptr);
+}
+
 void createDir(char* d) {
     mkdir(d, 0777);
 }

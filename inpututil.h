@@ -63,6 +63,9 @@ int command_mode(){
   else if(strcmp(bmcd[0],"goto")==0){
       return 2;
   }
+  else if(strcmp(bmcd[0],"create_file")==0){
+      create_file(bmcd[1]);
+  }
   else
       print_message("nothing specified");
   if(command_mode()==0){}
