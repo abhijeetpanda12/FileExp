@@ -8,7 +8,7 @@ int point=0;
 
 void print_status(char *c){
     gotopoint(E.screenrows-1,1);
-    write(STDOUT_FILENO, "\x1b[2K", 4);
+    write(STDOUT_FILENO, "\x1b[2K", 4);// clear line
     printf("%s\n",c );
 }
 

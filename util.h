@@ -4,11 +4,30 @@ int val_num_rows;
 int val_col;
 char c[1000];
 int df_flag=1;
+char bmcd[100][1000];
+int bmcd_l;
 
 void clrstring(char *cddd){
     int i;
     for(i=0;i<strlen(cddd);i++)
         cddd[i]='\0';
+}
+
+void break_command(char * cmd){
+    char t[1000];
+    int i,pp=0,j=0;
+    for (i=0;i<strlen(cmd);i++){
+        if (cmd[i]==' ' || cmd[i] == '\0'){
+            bmcd[j][pp]='\0';
+            j++;
+            pp=0;
+        }
+       else{
+        bmcd[j][pp]=cmd[i];
+        pp++;
+       }
+    }
+    bmcd_l=j;
 }
 
 void gotopoint(int x,int y){

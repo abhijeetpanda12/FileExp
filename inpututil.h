@@ -1,4 +1,50 @@
+char command[1000];
+
+void dispProcessKeypress();
+
+void command_mode(){
+  int i=0,gt=1;
+  gotopoint(E.screenrows,0);
+  write(STDOUT_FILENO, "\x1b[2K", 4); // clear line
+  write(STDOUT_FILENO,":",1);
+  // echomode();
+  char cm;
+  char pm[2];
+  while(gt){
+    cm = editorReadKey();
+    switch(cm) {
+      case '\n':
+        command[i]='\0';
+        gt=0;
+        break;
+      case '\x1b':
+        gotopoint(E.screenrows,0);
+        write(STDOUT_FILENO, "\x1b[2K", 4);
+        print_status("NORMAL MODE");
+        dispProcessKeypress();
+        return;
+      default:
+        pm[0]=cm;
+        pm[1]='\0';
+        write(STDOUT_FILENO,pm,1);
+        command[i]=cm;
+        i++;
+        break;
+    }
+  }
+  break_command(command);
+  if(strcmp(bmcd[0],"copy")==0)
+      print_message("Do a copy");
+  else if(strcmp(bmcd[0],"move")==0)
+      print_message("Do a move");
+  else
+      print_message("nothing specified");
+  command_mode();
+}
+
+
 void dispProcessKeypress() {
+  print_message("Press q to quit");
   char c = editorReadKey();
   switch (c) {
     case 'q':
@@ -40,6 +86,7 @@ void dispProcessKeypress() {
       break;
     case ':':
       print_status("COMMAND MODE");
+      command_mode();
       break;
     default:
       print_message("Press a valid Key");

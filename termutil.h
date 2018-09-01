@@ -28,6 +28,12 @@ void die(const char *s) {
   exit(1);
 }
 
+void echomode(){
+  struct termios rw = E.orig_termios;
+  rw.c_lflag &= (ECHO);
+  if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &rw) == -1) die("tcsetattr");
+}
+
 void disableRawMode() {
   if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &E.orig_termios) == -1)
     die("tcsetattr");

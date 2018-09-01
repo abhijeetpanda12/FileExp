@@ -31,7 +31,7 @@ void file_attrib(){
 int main(int argc, char** argv){
     enableRawMode();
     initscreen();
-    print_status("Normal mode");
+    print_status("NORMAL MODE");
     init_disp_var();
     print_message("Press q to exit.");
     // set working directory
@@ -53,6 +53,7 @@ int main(int argc, char** argv){
     print_message("STATUS : quiting!");
     sleep(3);
     exitscreen();
+
     // printf("%d\n",find_start_loc("heyyyyyyy","yy"));
     return 0;
 }
