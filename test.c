@@ -17,6 +17,7 @@
 #include "dirutil.h"
 #include "keyread.h"
 #include "disputil.h"
+#include "commandutil.h"
 #include "inpututil.h"
 
 void file_attrib(){
@@ -53,7 +54,5 @@ int main(int argc, char** argv){
     print_message("STATUS : quiting!");
     sleep(3);
     exitscreen();
-
-    // printf("%d\n",find_start_loc("heyyyyyyy","yy"));
     return 0;
 }

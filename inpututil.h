@@ -13,6 +13,15 @@ void command_mode(){
   while(gt){
     cm = editorReadKey();
     switch(cm) {
+      case 127:
+        print_message("backspace pressed");
+        gotopoint(E.screenrows,i+2);
+        i--;
+        command[i]='\0';
+        write(STDOUT_FILENO, "\x1b[1D", 4);
+        write(STDOUT_FILENO, " ", 1);
+        write(STDOUT_FILENO, "\x1b[1D", 4);
+        break;
       case '\n':
         command[i]='\0';
         gt=0;
@@ -26,6 +35,7 @@ void command_mode(){
       default:
         pm[0]=cm;
         pm[1]='\0';
+        // write(STDOUT_FILENO, "\x1b[1C", 4);
         write(STDOUT_FILENO,pm,1);
         command[i]=cm;
         i++;
@@ -33,10 +43,24 @@ void command_mode(){
     }
   }
   break_command(command);
-  if(strcmp(bmcd[0],"copy")==0)
-      print_message("Do a copy");
+  if(strcmp(bmcd[0],"copy")==0){
+    print_message("Do a copy");
+    print_message(bmcd[1]);
+    sleep(2);
+    print_message(bmcd[2]);
+    copy(bmcd[1],bmcd[2]);
+  }
   else if(strcmp(bmcd[0],"move")==0)
       print_message("Do a move");
+  else if(strcmp(bmcd[0],"copy_dir")==0){
+    print_message("Do a directory copy");
+    copy_dir(bmcd[1],bmcd[2]);
+  }
+  else if(strcmp(bmcd[0],"quit")==0){
+      print_message("STATUS : quiting!");
+      exitscreen();
+      exit(0);
+      }
   else
       print_message("nothing specified");
   command_mode();
@@ -68,7 +92,7 @@ void dispProcessKeypress() {
       print_message("DOWN arrow pressed");
       place_cursor(prev_row+1);
       break;
-    case 'd':
+    case '\n':
       print_message("RIGHT arrow pressed");
       point=curr_start+prev_row-val_row+1;
       char pth[1000];

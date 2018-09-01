@@ -27,6 +27,7 @@ void break_command(char * cmd){
         pp++;
        }
     }
+    bmcd[j][pp]='\0';
     bmcd_l=j;
 }
 
