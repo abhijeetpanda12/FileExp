@@ -2,7 +2,7 @@ char command[1000];
 
 void dispProcessKeypress();
 
-void command_mode(){
+int command_mode(){
   int i=0,gt=1;
   gotopoint(E.screenrows,0);
   write(STDOUT_FILENO, "\x1b[2K", 4); // clear line
@@ -31,7 +31,7 @@ void command_mode(){
         write(STDOUT_FILENO, "\x1b[2K", 4);
         print_status("NORMAL MODE");
         dispProcessKeypress();
-        return;
+        return 0;
       default:
         pm[0]=cm;
         pm[1]='\0';
@@ -46,7 +46,6 @@ void command_mode(){
   if(strcmp(bmcd[0],"copy")==0){
     print_message("Do a copy");
     print_message(bmcd[1]);
-    sleep(2);
     print_message(bmcd[2]);
     copy(bmcd[1],bmcd[2]);
   }
@@ -61,9 +60,13 @@ void command_mode(){
       exitscreen();
       exit(0);
       }
+  else if(strcmp(bmcd[0],"goto")==0){
+      return 2;
+  }
   else
       print_message("nothing specified");
-  command_mode();
+  if(command_mode()==0){}
+    return 0;
 }
 
 
@@ -110,12 +113,14 @@ void dispProcessKeypress() {
       break;
     case ':':
       print_status("COMMAND MODE");
-      command_mode();
+      if(command_mode()==2){
+        strcpy(twd,bmcd[1]);
+        list_dir(twd);
+      }
       break;
     default:
       print_message("Press a valid Key");
       break;
   }
-  // usleep(500000);
   print_message("Press q to quit.");
 }
