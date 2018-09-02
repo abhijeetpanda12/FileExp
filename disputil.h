@@ -98,7 +98,7 @@ int list_dir(char *wd){
             strcat(disp_buff[i],ent->d_name);
             if (S_ISREG(FileAttrib.st_mode)){
                 sprintf(size,"%.3f KB\n", FileAttrib.st_size/1000.0);
-                strcat(disp_buff[i],"------------------------------>");
+                strcat(disp_buff[i],"-------------------->");
                 strcat(disp_buff[i],size);
             }
             i++;

@@ -75,6 +75,14 @@ int command_mode(){
           sleep(2);
         }
   }
+  else if(strcmp(bmcd[0],"snapshot")==0){
+    print_message("Do a snapshot");
+    FILE *fpp  = fopen(bmcd[2], "w");
+    fprintf(fpp, "%s\n",bmcd[1]);
+    snap_dir(bmcd[1],fpp,1);
+    fclose(fpp);
+    print_message(bmcd[2]);
+  }
   else if(strcmp(bmcd[0],"quit")==0){
       print_message("STATUS : quiting!");
       exitscreen();
@@ -136,7 +144,9 @@ void dispProcessKeypress() {
       point=curr_start+prev_row-val_row+1;
       char pth[1000];
       strcpy(pth,path_from_disp());
-      if(strcmp(pth,"..")==0){
+      if(strcmp(pth,".")==0){
+      }
+      else if(strcmp(pth,"..")==0){
           dir_up();
           list_dir(twd);
       }
