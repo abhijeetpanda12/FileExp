@@ -11,6 +11,7 @@
 #include <limits.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <time.h>
 
 char path_array[1000][1000];
 int path_array_point=0;

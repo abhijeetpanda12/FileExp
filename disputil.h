@@ -81,6 +81,8 @@ void print_buff(int start,int len){
 
 int list_dir(char *wd){
     buff_clean();
+    char perm[11];
+    char date[10];
     struct stat FileAttrib;
     DIR *dir;
     struct dirent *ent;
@@ -92,14 +94,31 @@ int list_dir(char *wd){
             strcat(f_path,"/");
             strcat(f_path,ent->d_name);
             stat(f_path, &FileAttrib);
+            strcpy(perm,"\0");
             if(S_ISDIR(FileAttrib.st_mode)){
                 strcat(disp_buff[i],"[DIR]");
             }
             strcat(disp_buff[i],ent->d_name);
             if (S_ISREG(FileAttrib.st_mode)){
-                sprintf(size,"%.3f KB\n", FileAttrib.st_size/1000.0);
-                strcat(disp_buff[i],"-------------------->");
+                sprintf(size,"%lld bytes",FileAttrib.st_size);
+                // sprintf(size,"%.3f KB", FileAttrib.st_size/1000.0);
+                strftime(date, 20, "%d-%m-%y", localtime(&(FileAttrib.st_ctime)));
+                strcat(disp_buff[i],"-------------------->\t");
                 strcat(disp_buff[i],size);
+                strcat(perm, (S_ISDIR(FileAttrib.st_mode)) ? "d" : "-");
+                strcat(perm, (FileAttrib.st_mode & S_IRUSR) ? "r" : "-");
+                strcat(perm, (FileAttrib.st_mode & S_IWUSR) ? "w" : "-");
+                strcat(perm, (FileAttrib.st_mode & S_IXUSR) ? "x" : "-");
+                strcat(perm, (FileAttrib.st_mode & S_IRGRP) ? "r" : "-");
+                strcat(perm, (FileAttrib.st_mode & S_IWGRP) ? "w" : "-");
+                strcat(perm, (FileAttrib.st_mode & S_IXGRP) ? "x" : "-");
+                strcat(perm, (FileAttrib.st_mode & S_IROTH) ? "r" : "-");
+                strcat(perm, (FileAttrib.st_mode & S_IWOTH) ? "w" : "-");
+                strcat(perm, (FileAttrib.st_mode & S_IXOTH) ? "x" : "-");
+                strcat(disp_buff[i],"\t");
+                strcat(disp_buff[i],perm);
+                strcat(disp_buff[i],"\t");
+                strcat(disp_buff[i],date);
             }
             i++;
         }
