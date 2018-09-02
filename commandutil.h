@@ -66,6 +66,39 @@ int copy_dir(char *s_dir, char *d_dir){
                         }
                     }
         }
+    closedir(dir);
     }
+
+    return 1;
+}
+
+int remove_dir(char *s_dir){
+    char s_path[1000];
+    struct stat FileAttrib;
+    DIR *dir;
+    struct dirent *ent;
+    int i=0;char size[20];char f_path[1000];
+    if ((dir = opendir (s_dir)) != NULL) {
+        while ((ent = readdir (dir)) != NULL){
+                if(strcmp(ent->d_name,".")!=0 && strcmp(ent->d_name,"..")!=0){
+                        strcpy(s_path,s_dir);
+                        strcat(s_path,"/");
+                        strcat(s_path,ent->d_name);
+                        strcat(s_path,"\0");
+                        stat(s_path, &FileAttrib);
+                        if (S_ISDIR(FileAttrib.st_mode)){
+                            if (remove_dir(s_path)!=1){
+                                print_message("error\n");
+                            }
+                        }
+                        else{
+                            remove(s_path);
+                        }
+                    }
+        }
+    closedir(dir);
+    rmdir(s_dir);
+    }
+    // printf("%s\n",s_dir);
     return 1;
 }

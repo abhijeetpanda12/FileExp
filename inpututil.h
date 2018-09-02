@@ -49,8 +49,16 @@ int command_mode(){
     print_message(bmcd[2]);
     copy(bmcd[1],bmcd[2]);
   }
-  else if(strcmp(bmcd[0],"move")==0)
-      print_message("Do a move");
+  else if(strcmp(bmcd[0],"move")==0){
+    print_message("Do a move");
+    copy(bmcd[1],bmcd[2]);
+    remove(bmcd[1]);
+  }
+  else if(strcmp(bmcd[0],"move_dir")==0){
+    print_message("Do a Directory move");
+    copy_dir(bmcd[1],bmcd[2]);
+    remove_dir(bmcd[1]);
+  }
   else if(strcmp(bmcd[0],"copy_dir")==0){
     print_message("Do a directory copy");
     copy_dir(bmcd[1],bmcd[2]);
@@ -65,6 +73,14 @@ int command_mode(){
   }
   else if(strcmp(bmcd[0],"create_file")==0){
       create_file(bmcd[1]);
+  }
+  else if(strcmp(bmcd[0],"delete")==0){
+      print_message("Delete");
+      remove(bmcd[1]);
+  }
+  else if(strcmp(bmcd[0],"delete_dir")==0){
+      print_message("Delete a directory");
+      remove_dir(bmcd[1]);
   }
   else
       print_message("nothing specified");
@@ -106,6 +122,7 @@ void dispProcessKeypress() {
       if(df_flag){
         strcat(twd,"/");
         strcat(twd,pth);
+        set_work_dir();
         list_dir(twd);
       }
       else{
@@ -118,6 +135,7 @@ void dispProcessKeypress() {
       print_status("COMMAND MODE");
       if(command_mode()==2){
         strcpy(twd,bmcd[1]);
+        set_work_dir();
         list_dir(twd);
       }
       break;
