@@ -115,6 +115,7 @@ void dispProcessKeypress() {
   switch (c) {
     case 'q':
       print_message("STATUS : quiting!");
+      fclose(logg);
       exitscreen();
       exit(0);
       break;
@@ -124,6 +125,12 @@ void dispProcessKeypress() {
     case 127:
       print_message("UP one directory");
       dir_up();
+      //----
+        strcpy(path_array[path_array_point],twd);
+        fprintf(logg,"%d---->%s\n",path_array_point,path_array[path_array_point] );
+        path_array_point++;
+        present_path_point++;
+        //----
       list_dir(twd);
       break;
     case 'h':
@@ -134,6 +141,38 @@ void dispProcessKeypress() {
     case 'w':
       print_message("UP arrow pressed");
       place_cursor(prev_row-1);
+      break;
+    case 'a':
+      print_message("LEFT arrow pressed");
+      present_path_point--;
+      path_array_point--;
+      fprintf(logg,"left---%d <> %d ---->%s\n",path_array_point,present_path_point,path_array[present_path_point] );
+      if(present_path_point>=0){
+        print_message(path_array[present_path_point]);
+        strcpy(twd,path_array[present_path_point]);
+        set_work_dir();
+        list_dir(twd);
+      }else{
+        present_path_point++;
+        path_array_point++;
+      }
+      break;
+    case 'd':
+      print_message("RIGHT arrow pressed");
+      present_path_point++;
+      path_array_point++;
+      fprintf(logg,"right---%d <> %d ---->%s\n",path_array_point,present_path_point,path_array[present_path_point] );
+      if(present_path_point<path_array_point && strcmp(path_array[present_path_point],"\0")!=0){
+          print_message(path_array[present_path_point]);
+          strcpy(twd,path_array[present_path_point]);
+          set_work_dir();
+          print_message(twd);
+          list_dir(twd);
+        }
+      else{
+        present_path_point--;
+        path_array_point--;
+      }
       break;
     case 's':
       print_message("DOWN arrow pressed");
@@ -148,12 +187,25 @@ void dispProcessKeypress() {
       }
       else if(strcmp(pth,"..")==0){
           dir_up();
+          //----
+          strcpy(path_array[path_array_point],twd);
+          path_array[path_array_point][strlen(twd)]='\0';
+          fprintf(logg,"%d---->%s\n",path_array_point,path_array[path_array_point] );
+          path_array_point++;
+          present_path_point++;
+          //----
           list_dir(twd);
       }
       else if(df_flag){
         strcat(twd,"/");
         strcat(twd,pth);
         set_work_dir();
+        //----
+          strcpy(path_array[path_array_point],twd);
+          fprintf(logg,"%d---->%s\n",path_array_point,path_array[path_array_point] );
+          path_array_point++;
+          present_path_point++;
+        //----
         list_dir(twd);
       }
       else{
@@ -180,6 +232,12 @@ void dispProcessKeypress() {
       if(command_mode()==2){
         strcpy(twd,bmcd[1]);
         set_work_dir();
+        //----
+          strcpy(path_array[path_array_point],twd);
+          fprintf(logg,"%d---->%s\n",path_array_point,path_array[path_array_point] );
+          path_array_point++;
+          present_path_point++;
+        //----
         list_dir(twd);
       }
       break;

@@ -12,6 +12,13 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+char path_array[1000][1000];
+int path_array_point=0;
+int present_path_point=0;
+
+FILE *logg;
+
+
 #include "termutil.h"
 #include "util.h"
 #include "dirutil.h"
@@ -29,7 +36,9 @@ void file_attrib(){
 }
 
 
+
 int main(int argc, char** argv){
+    logg=fopen("log.txt", "w");
     enableRawMode();
     initscreen();
     print_status("NORMAL MODE");
@@ -43,6 +52,11 @@ int main(int argc, char** argv){
     }else{
         if (getwdir()==-1) exitscreen();
     }
+    //--------
+    strcpy(path_array[path_array_point],cwd);
+    fprintf(logg,"%d---->%s\n",path_array_point,path_array[path_array_point] );
+    path_array_point++;
+    //------------
     if(list_dir(cwd)==-1) {
         print_status("NOT A DIRECTORY");
     }
