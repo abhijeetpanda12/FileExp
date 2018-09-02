@@ -94,6 +94,10 @@ int command_mode(){
   else if(strcmp(bmcd[0],"create_file")==0){
       create_file(bmcd[1]);
   }
+  else if(strcmp(bmcd[0],"rename")==0){
+      print_message("rename");
+      rename(bmcd[1],bmcd[2]);
+  }
   else if(strcmp(bmcd[0],"delete")==0){
       print_message("Delete");
       remove(bmcd[1]);
