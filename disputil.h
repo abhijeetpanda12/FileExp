@@ -68,7 +68,7 @@ void print_buff(int start,int len){
     }
     if(len>temp_row){
         gotopoint(val_row_end,val_col);
-        printf("%d files remaining\n",len-temp_row+1);
+        printf("few files remaining\n");
         print_message("Press c to display more, k to display again, j to move here");
         char c = editorReadKey();
         if (c=='c')

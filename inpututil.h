@@ -160,6 +160,19 @@ void dispProcessKeypress() {
         print_message("IS A FILE");
         sleep(1);
         df_flag=1;
+        char fpth[1000];
+        strcpy(fpth,twd);
+        strcat(fpth,"/");
+        strcat(fpth,pth);
+        strcat(fpth,"\0");
+        print_message(fpth);
+        int pid = fork();
+        if (pid == 0) {
+          // execl("/usr/bin/xdg-open", "xdg-open", fpth, (char *)0);
+          execl("/usr/bin/open", "open", fpth, (char *)0);
+          // execv("open",fpth);
+          exit(1);
+        }
       }
       break;
     case ':':
