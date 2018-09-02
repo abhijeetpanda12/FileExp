@@ -25,6 +25,7 @@ FILE *logg;
 #include "keyread.h"
 #include "disputil.h"
 #include "commandutil.h"
+#include "searchutil.h"
 #include "inpututil.h"
 
 void file_attrib(){

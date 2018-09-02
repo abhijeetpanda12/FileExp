@@ -70,10 +70,16 @@ int command_mode(){
       search_buff_l=0;
       int i;
       if (search_dir(twd,bmcd[1])==1){}
-      for(i=0;i<search_buff_l;i++){
-          print_message(search_buff[i]);
-          sleep(2);
-        }
+      // for(i=0;i<search_buff_l;i++){
+      //     fprintf(logg, "%s\n",search_buff[i] );
+      //   }
+      print_search();
+      gotopoint(E.screenrows,0);
+      write(STDOUT_FILENO, "\x1b[2K", 4);
+      print_status("NORMAL MODE");
+      dispProcessKeypress();
+      return 0;
+
   }
   else if(strcmp(bmcd[0],"snapshot")==0){
     print_message("Do a snapshot");
@@ -251,3 +257,4 @@ void dispProcessKeypress() {
   }
   print_message("Press q to quit.");
 }
+
