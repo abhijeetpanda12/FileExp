@@ -132,11 +132,15 @@ void dispProcessKeypress() {
       place_cursor(prev_row+1);
       break;
     case '\n':
-      print_message("RIGHT arrow pressed");
+      print_message("ENTER pressed");
       point=curr_start+prev_row-val_row+1;
       char pth[1000];
       strcpy(pth,path_from_disp());
-      if(df_flag){
+      if(strcmp(pth,"..")==0){
+          dir_up();
+          list_dir(twd);
+      }
+      else if(df_flag){
         strcat(twd,"/");
         strcat(twd,pth);
         set_work_dir();

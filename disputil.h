@@ -4,6 +4,7 @@ int prev_row=0;
 int t_files=0;
 int list_dir(char *cwd);
 int point=0;
+int lim;
 
 
 void print_status(char *c){
@@ -32,6 +33,7 @@ void buff_clean(){
 void place_cursor(int row){
     if(row<val_row) return;
     if(row>val_row_end) return;
+    if(row>lim) return;
     gotopoint(prev_row,0);
     printf(" \n");
     gotopoint(row,0);
@@ -49,6 +51,7 @@ void clrdisp(){
 }
 
 void print_buff(int start,int len){
+    lim=len+2;
     print_message("STATUS : Listing Directories");
     curr_start=start;
     curr_len=len;
