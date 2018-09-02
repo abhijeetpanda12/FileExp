@@ -1,3 +1,6 @@
+char search_buff[100][1000];
+int search_buff_l = 0;
+
 void create_file(char * file_name){
     FILE *fptr;
     fptr = fopen(file_name, "w");
@@ -56,7 +59,7 @@ int copy_dir(char *s_dir, char *d_dir){
                         strcat(s_path,"\0");
                         stat(s_path, &FileAttrib);
                         if (S_ISDIR(FileAttrib.st_mode)){
-                            createDir(d_path);
+                            // createDir(d_path);
                             if(copy_dir(s_path,d_path)==1){
                                 // printf("-->\n");
                             }
@@ -100,5 +103,35 @@ int remove_dir(char *s_dir){
     rmdir(s_dir);
     }
     // printf("%s\n",s_dir);
+    return 1;
+}
+
+
+int search_dir(char *s_dir, char *key){
+    char s_path[1000];
+    struct stat FileAttrib;
+    DIR *dir;
+    struct dirent *ent;
+    int i=0;
+    if ((dir = opendir (s_dir)) != NULL) {
+        while ((ent = readdir (dir)) != NULL){
+                if(strcmp(ent->d_name,".")!=0 && strcmp(ent->d_name,"..")!=0){
+                        strcpy(s_path,s_dir);
+                        strcat(s_path,"/");
+                        strcat(s_path,ent->d_name);
+                        strcat(s_path,"\0");
+                        stat(s_path, &FileAttrib);
+                        if(strcmp(ent->d_name,key)==0){
+                                strcpy(search_buff[search_buff_l],s_path);
+                                search_buff[search_buff_l][strlen(s_path)]='\0';
+                                search_buff_l++;
+                        }
+                        if (S_ISDIR(FileAttrib.st_mode)){
+                            search_dir(s_path,key);
+                        }
+                    }
+        }
+    closedir(dir);
+    }
     return 1;
 }

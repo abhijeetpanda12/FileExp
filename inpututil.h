@@ -63,6 +63,18 @@ int command_mode(){
     print_message("Do a directory copy");
     copy_dir(bmcd[1],bmcd[2]);
   }
+  else if(strcmp(bmcd[0],"search")==0){
+      print_message("Doing a search");
+      sleep(1);
+      print_message(bmcd[1]);
+      search_buff_l=0;
+      int i;
+      if (search_dir(twd,bmcd[1])==1){}
+      for(i=0;i<search_buff_l;i++){
+          print_message(search_buff[i]);
+          sleep(2);
+        }
+  }
   else if(strcmp(bmcd[0],"quit")==0){
       print_message("STATUS : quiting!");
       exitscreen();
@@ -100,6 +112,11 @@ void dispProcessKeypress() {
       break;
     case 'p':
       clrdisp();
+      break;
+    case 127:
+      print_message("UP one directory");
+      dir_up();
+      list_dir(twd);
       break;
     case 'h':
       if(list_dir(cwd)==-1) {
