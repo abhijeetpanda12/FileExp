@@ -50,13 +50,13 @@ void searchKeyPress() {
   switch (c) {
     case 'q':
       print_message("STATUS : quiting!");
-      fclose(logg);
+      // fclose(logg);
       exitscreen();
       exit(0);
       break;
     case 'a':
       print_message("LEFT arrow pressed");
-      fprintf(logg,"left---%d <> %d ---->%s\n",path_array_point,present_path_point,path_array[present_path_point] );
+      // fprintf(logg,"left---%d <> %d ---->%s\n",path_array_point,present_path_point,path_array[present_path_point] );
         print_message(path_array[present_path_point]);
         strcpy(twd,path_array[present_path_point]);
         set_work_dir();

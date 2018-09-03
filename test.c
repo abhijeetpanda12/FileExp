@@ -17,7 +17,7 @@ char path_array[1000][1000];
 int path_array_point=0;
 int present_path_point=0;
 
-FILE *logg;
+// FILE *logg;
 
 
 #include "termutil.h"
@@ -40,7 +40,7 @@ void file_attrib(){
 
 
 int main(int argc, char** argv){
-    logg=fopen("log.txt", "w");
+    // logg=fopen("log.txt", "w");
     enableRawMode();
     initscreen();
     print_status("NORMAL MODE");
@@ -56,7 +56,7 @@ int main(int argc, char** argv){
     }
     //--------
     strcpy(path_array[path_array_point],cwd);
-    fprintf(logg,"%d---->%s\n",path_array_point,path_array[path_array_point] );
+    // fprintf(logg,"%d---->%s\n",path_array_point,path_array[path_array_point] );
     path_array_point++;
     //------------
     if(list_dir(cwd)==-1) {

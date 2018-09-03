@@ -125,7 +125,7 @@ void dispProcessKeypress() {
   switch (c) {
     case 'q':
       print_message("STATUS : quiting!");
-      fclose(logg);
+      // fclose(logg);
       exitscreen();
       exit(0);
       break;
@@ -137,7 +137,7 @@ void dispProcessKeypress() {
       dir_up();
       //----
         strcpy(path_array[path_array_point],twd);
-        fprintf(logg,"%d---->%s\n",path_array_point,path_array[path_array_point] );
+        // fprintf(logg,"%d---->%s\n",path_array_point,path_array[path_array_point] );
         path_array_point++;
         present_path_point++;
         //----
@@ -156,7 +156,7 @@ void dispProcessKeypress() {
       print_message("LEFT arrow pressed");
       present_path_point--;
       path_array_point--;
-      fprintf(logg,"left---%d <> %d ---->%s\n",path_array_point,present_path_point,path_array[present_path_point] );
+      // fprintf(logg,"left---%d <> %d ---->%s\n",path_array_point,present_path_point,path_array[present_path_point] );
       if(present_path_point>=0){
         print_message(path_array[present_path_point]);
         strcpy(twd,path_array[present_path_point]);
@@ -171,7 +171,7 @@ void dispProcessKeypress() {
       print_message("RIGHT arrow pressed");
       present_path_point++;
       path_array_point++;
-      fprintf(logg,"right---%d <> %d ---->%s\n",path_array_point,present_path_point,path_array[present_path_point] );
+      // fprintf(logg,"right---%d <> %d ---->%s\n",path_array_point,present_path_point,path_array[present_path_point] );
       if(present_path_point<path_array_point && strcmp(path_array[present_path_point],"\0")!=0){
           print_message(path_array[present_path_point]);
           strcpy(twd,path_array[present_path_point]);
@@ -200,7 +200,7 @@ void dispProcessKeypress() {
           //----
           strcpy(path_array[path_array_point],twd);
           path_array[path_array_point][strlen(twd)]='\0';
-          fprintf(logg,"%d---->%s\n",path_array_point,path_array[path_array_point] );
+          // fprintf(logg,"%d---->%s\n",path_array_point,path_array[path_array_point] );
           path_array_point++;
           present_path_point++;
           //----
@@ -212,7 +212,7 @@ void dispProcessKeypress() {
         set_work_dir();
         //----
           strcpy(path_array[path_array_point],twd);
-          fprintf(logg,"%d---->%s\n",path_array_point,path_array[path_array_point] );
+          // fprintf(logg,"%d---->%s\n",path_array_point,path_array[path_array_point] );
           path_array_point++;
           present_path_point++;
         //----
@@ -244,7 +244,7 @@ void dispProcessKeypress() {
         set_work_dir();
         //----
           strcpy(path_array[path_array_point],twd);
-          fprintf(logg,"%d---->%s\n",path_array_point,path_array[path_array_point] );
+          // fprintf(logg,"%d---->%s\n",path_array_point,path_array[path_array_point] );
           path_array_point++;
           present_path_point++;
         //----
