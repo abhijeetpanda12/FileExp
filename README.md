@@ -1,12 +1,17 @@
 # FileExp
 This repository is the final submission to my Operating Systems Assignment -1.
+
+
+
 Submission Deadline : 3rd September, 2018
 
 ### The aim of the assignment is to make a terminal based File-Explorer application that can perform functionalities like browsing, listing, copying, moving, deleting, renaming, searching and snapshot.
 
 ## The application works with two major modes
-## * Normal Mode
-## * Command mode
+
+## 1. Normal Mode
+
+## 2. Command mode
 
 ### Start the application by:
 ```
@@ -87,6 +92,6 @@ The function recursively lists the contents of a directory in a file.
 snapshot /path/to/directory /path/to/snapshot/file
 ```
 ## Limitations and Assumption:
-### * The file and directory paths must be absolute.
-### * Text Wrapping is not supported.
-### * File and Folder Deletions are permanent.
+### 1. The file and directory paths must be absolute.
+### 2. Text Wrapping is not supported.
+### 3. File and Folder Deletions are permanent.
