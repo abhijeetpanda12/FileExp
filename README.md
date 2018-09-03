@@ -27,13 +27,21 @@ num->|<File_Name>----------> <size>	<permissions>	<last_modified_time>
 num->|[DIR]<Directory_Name>
 ```
 A message bar at the bottom displays the instructions to quit or scroll(in case all the files don't fit in to the screen).
+
 The `backspace` / `delete`(in Mac) can be pressed to move one level up the directory structure.
+
 The `up` and the `down` arrow keys can be used to navigate through the files and directories displayed on the screen.
+
 Pressing the `enter` key on a directory, enters into the directory and displays the content.
+
 Pressing the `enter` key on a file, opens the file with the default application.
+
 The `left` and `right` arrow keys can be used to move back and forward to the browsing history.
+
 At any point in normal mode `q` can be pressed to quit the application.
+
 `c` should be used for scrolling the window.
+
 The `h` key can be pressed any time to reach the home directory.
 
 ## Command mode:
